@@ -11,5 +11,8 @@ export type { CardProps } from './components/Card';
 export { Badge } from './components/Badge';
 export type { BadgeProps } from './components/Badge';
 
+export { Modal } from './components/Modal';
+export type { ModalProps } from './components/Modal';
+
 // Utils
 export { cn } from './utils/cn';
