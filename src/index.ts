@@ -16,3 +16,4 @@ export type { ModalProps } from './components/Modal';
 
 // Utils
 export { cn } from './utils/cn';
+export type { ClassValue } from './utils/cn';
