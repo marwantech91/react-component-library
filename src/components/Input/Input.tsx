@@ -14,6 +14,8 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   leftAddon?: React.ReactNode;
   /** Right addon element */
   rightAddon?: React.ReactNode;
+  /** Whether the field is required (shows asterisk next to label) */
+  isRequired?: boolean;
 }
 
 /**
@@ -29,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       size = 'md',
       leftAddon,
       rightAddon,
+      isRequired,
       id,
       ...props
     },
@@ -50,6 +53,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className="block text-sm font-medium text-gray-700 mb-1"
           >
             {label}
+            {isRequired && <span className="text-red-500 ml-0.5">*</span>}
           </label>
         )}
         <div className="relative flex">
