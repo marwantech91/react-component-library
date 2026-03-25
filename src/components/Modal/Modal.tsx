@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { cn } from '../../utils/cn';
 
+export type ModalSize = 'sm' | 'md' | 'lg';
+
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: ModalSize;
   children: React.ReactNode;
   closeOnOverlay?: boolean;
   showCloseButton?: boolean;
   className?: string;
+  onAfterOpen?: () => void;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -21,6 +24,7 @@ export const Modal: React.FC<ModalProps> = ({
   closeOnOverlay = true,
   showCloseButton = true,
   className,
+  onAfterOpen,
 }) => {
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +39,7 @@ export const Modal: React.FC<ModalProps> = ({
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'hidden';
+      onAfterOpen?.();
     }
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
