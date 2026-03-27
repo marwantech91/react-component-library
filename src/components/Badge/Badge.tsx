@@ -10,13 +10,17 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   rounded?: boolean;
   /** Show dot indicator */
   dot?: boolean;
+  /** Show remove button */
+  removable?: boolean;
+  /** Called when remove button is clicked */
+  onRemove?: () => void;
 }
 
 /**
  * Badge component for status indicators and labels
  */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
-  ({ className, variant = 'default', size = 'md', rounded = false, dot = false, children, ...props }, ref) => {
+  ({ className, variant = 'default', size = 'md', rounded = false, dot = false, removable = false, onRemove, children, ...props }, ref) => {
     const variants = {
       default: 'bg-gray-100 text-gray-800',
       primary: 'bg-blue-100 text-blue-800',
@@ -57,6 +61,16 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
           <span className={cn('inline-block h-1.5 w-1.5 rounded-full mr-1.5', dotColors[variant])} />
         )}
         {children}
+        {removable && (
+          <button
+            type="button"
+            className="ml-1 inline-flex items-center hover:opacity-70"
+            onClick={(e) => { e.stopPropagation(); onRemove?.(); }}
+            aria-label="Remove"
+          >
+            &times;
+          </button>
+        )}
       </span>
     );
   }
